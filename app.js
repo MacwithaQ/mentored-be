@@ -3,7 +3,8 @@ const connectDB = require("./database/database");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const passport = require("passport");
-const { localStrategy, jwtStrategy } = require("./middlewares/Passport");
+const { localStrategy, jwtStrategy } = require("./middlewares/passport");
+const usersRouter = require("./api/user/userRoutes");
 
 dotenv.config();
 const app = express();
@@ -24,9 +25,23 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routers example
+// Routers
 // app.use("/api/categories", categoryRouter);
 // app.use("/api/recipes", recipeRouter);
+app.use("/api/users", usersRouter);
+
+//? Error handler Middleware
+app.use((err, req, res, next) => {
+  res
+    .status(err.status || 500)
+    .json({ msg: err.message || "Internal Server Error" });
+  next();
+});
+
+//? Not Found Middleware
+app.use((req, res, next) => {
+  res.status(404).json({ msg: "Path Not Found" });
+});
 
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);
