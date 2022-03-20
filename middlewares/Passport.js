@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 // Using passport to verify user and password
 exports.localStrategy = new LocalStrategy(async (user, password, done) => {
   try {
-    const foundUser = await User.findOne({ username: user });
+    const foundUser = await User.findOne({ email: user });
     const isPasswordMatch = foundUser
       ? await bcrypt.compare(password, foundUser.password)
       : false;
