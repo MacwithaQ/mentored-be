@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
   lastName: {
     type: String,
   },
-  isMentor: Boolean,
+  isMentor: { type: Boolean, required: true },
 });
 
 module.exports = mongoose.model("User", UserSchema);
