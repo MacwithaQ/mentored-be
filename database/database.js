@@ -5,8 +5,7 @@ dotenv.config();
 
 const connectDB = async () => {
   const PASSWORD = process.env.PASSWORD;
-  const DATABASE = process.env.DATABASE;
-  const CONNECTION_URL = `mongodb+srv://mkalansari:${PASSWORD}@coded.g97iy.mongodb.net/${DATABASE}?retryWrites=true&w=majority`;
+  const CONNECTION_URL = `mongodb+srv://mkalansari:${PASSWORD}@coded.g97iy.mongodb.net/test?authSource=admin&replicaSet=atlas-pgw0fm-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`;
 
   const conn = await mongoose.connect(CONNECTION_URL, {
     useUnifiedTopology: true,
