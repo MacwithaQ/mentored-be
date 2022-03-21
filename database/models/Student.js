@@ -8,6 +8,13 @@ const StudentSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
+  guardian: {
+    type: String,
+  },
+  //! added by AlKhareji
+  gPhone: {
+    type: Number,
+  },
   image: {
     type: String,
   },
