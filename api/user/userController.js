@@ -30,6 +30,7 @@ exports.signup = async (req, res, next) => {
       if (newUser.isMentor === true) {
         console.log("is mentor?");
         const profile = {
+          user: newUser._id,
           major: req.body.major,
           employer: req.body.employer,
           image: "",
@@ -41,6 +42,7 @@ exports.signup = async (req, res, next) => {
       else {
         console.log("is student?");
         const profile = {
+          user: newUser._id,
           age: req.body.age,
           educationLevel: req.body.educationLevel,
           guardian: req.body.guardian,

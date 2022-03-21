@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 // Creates a mongoose schema to define how a certain object is to be added to the database
 const MentorSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   employer: {
     type: String,
-    required: true,
+    // required: true,
   },
   major: { type: String },
 
@@ -12,7 +13,7 @@ const MentorSchema = new mongoose.Schema({
 
   educationLevel: {
     type: String,
-    required: true,
+    // required: true,
   },
   image: {
     type: String,

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 // Creates a mongoose schema to define how a certain object is to be added to the database
 const StudentSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   educationLevel: {
     type: String,
     required: true,
