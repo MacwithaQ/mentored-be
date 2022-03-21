@@ -5,7 +5,11 @@ const cors = require("cors");
 const passport = require("passport");
 const { localStrategy, jwtStrategy } = require("./middlewares/passport");
 const usersRouter = require("./api/user/userRoutes");
+
+const studentsRouter = require("./api/student/studentRoutes");
+
 const mentorsRouter = require("./api/mentor/mentorRoutes");
+
 
 dotenv.config();
 const app = express();
@@ -30,7 +34,11 @@ app.use((req, res, next) => {
 // app.use("/api/categories", categoryRouter);
 // app.use("/api/recipes", recipeRouter);
 app.use("/api/users", usersRouter);
+
+app.use("/api/students", studentsRouter);
+
 app.use("/api/mentors", mentorsRouter);
+
 
 //? Error handler Middleware
 app.use((err, req, res, next) => {
