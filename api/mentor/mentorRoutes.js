@@ -1,5 +1,9 @@
 const express = require("express");
-const { fetchMentors } = require("./mentorController");
+const {
+  fetchMentors,
+  updateMentor,
+  fetchOneMentor,
+} = require("./mentorController");
 
 //? Set Router
 const mentorsRouter = express.Router();
@@ -7,7 +11,7 @@ const mentorsRouter = express.Router();
 //? Params Middleware
 mentorsRouter.param("mentorId", async (req, res, next, mentorId) => {
   try {
-    const mentor = await fetchMentor(mentorId, next);
+    const mentor = await fetchOneMentor(mentorId, next);
     req.mentor = mentor;
     next();
   } catch (error) {
@@ -18,6 +22,6 @@ mentorsRouter.param("mentorId", async (req, res, next, mentorId) => {
 //? Assign Router to Controllers
 
 mentorsRouter.get("/", fetchMentors);
-mentorsRouter.put("/" /*, updateMentorProfile */);
+mentorsRouter.put("/:mentorId", updateMentor);
 
 module.exports = mentorsRouter;
