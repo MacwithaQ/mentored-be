@@ -10,6 +10,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //! Added Phone Number because front end has it - Alqallaf
+  phone: {
+    type: String,
+  },
   firstName: {
     type: String,
   },
