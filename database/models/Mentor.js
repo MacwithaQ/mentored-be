@@ -5,7 +5,11 @@ const MentorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  major: { type: mongoose.Schema.Types.ObjectId, ref: "Major" },
+  major: { type: String },
+
+  //Todo: get majors from the DB - AlKhareji
+  // major: { type: mongoose.Schema.Types.ObjectId, ref: "Major" },
+
   educationLevel: {
     type: String,
     required: true,
@@ -13,9 +17,12 @@ const MentorSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  degreeImage: {
-    type: String,
-  },
+
+  //todo: Icebox - AlKhareji
+  // degreeImage: {
+  //   type: String,
+  // },
+
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointment" }],
   messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
 });

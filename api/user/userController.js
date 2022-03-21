@@ -3,6 +3,8 @@ const User = require("../../database/models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../../config/keys");
+const Mentor = require("../../database/models/Mentor");
+const Student = require("../../database/models/Student");
 
 exports.fetchUsers = async (req, res, next) => {
   try {
@@ -15,11 +17,40 @@ exports.fetchUsers = async (req, res, next) => {
 
 exports.signup = async (req, res, next) => {
   try {
+    console.log("body", req.body);
     const { password } = req.body;
     const saltRounds = 10;
     req.body.password = await bcrypt.hash(password, saltRounds);
 
     const newUser = await User.create(req.body);
+
+    // if New User Create Profile
+    if (newUser) {
+      // if the user is MENTOR create mentor profile - AlKhareji
+      if (newUser.isMentor === true) {
+        console.log("is mentor?");
+        const profile = {
+          major: req.body.major,
+          employer: req.body.employer,
+          image: "",
+        };
+        console.log("mentor profile:", profile);
+        await Mentor.create(profile);
+      }
+      // else the user is Student. So, create student profile - AlKhareji
+      else {
+        console.log("is student?");
+        const profile = {
+          age: req.body.age,
+          educationLevel: req.body.educationLevel,
+          guardian: req.body.guardian,
+          gPhone: req.body.gPhone,
+          image: "",
+        };
+        console.log("student profile:", profile);
+        await Student.create(profile);
+      }
+    }
 
     const payload = {
       _id: newUser._id,
