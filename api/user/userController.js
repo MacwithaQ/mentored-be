@@ -35,6 +35,7 @@ exports.signup = async (req, res, next) => {
           lastName: req.body.lastName,
           major: req.body.major,
           employer: req.body.employer,
+          bio: req.body.bio,
           image: "",
         };
         console.log("mentor profile:", profile);

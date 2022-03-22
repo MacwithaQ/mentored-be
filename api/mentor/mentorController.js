@@ -19,7 +19,7 @@ exports.fetchMentors = async (req, res, next) => {
   try {
     const mentors = await Mentor.find().populate({
       path: "user",
-      select: ["firstName", "lastName", "email", "phone", "isMentor"],
+      select: ["email", "isMentor"],
     });
     return res.json(mentors);
   } catch (error) {

@@ -22,6 +22,8 @@ const MentorSchema = new mongoose.Schema({
 
   major: { type: String },
 
+  bio: { type: String },
+
   //Todo: get majors from the DB - AlKhareji
   // major: { type: mongoose.Schema.Types.ObjectId, ref: "Major" },
 

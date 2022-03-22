@@ -22,7 +22,7 @@ exports.fetchStudents = async (req, res, next) => {
   try {
     const students = await Student.find().populate({
       path: "user",
-      select: ["firstName", "lastName", "email", "phone", "isMentor"],
+      select: ["email", "isMentor"],
     });
     return res.json(students);
   } catch (error) {
