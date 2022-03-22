@@ -31,6 +31,8 @@ exports.signup = async (req, res, next) => {
         console.log("is mentor?");
         const profile = {
           user: newUser._id,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
           major: req.body.major,
           employer: req.body.employer,
           image: "",
@@ -43,6 +45,8 @@ exports.signup = async (req, res, next) => {
         console.log("is student?");
         const profile = {
           user: newUser._id,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
           age: req.body.age,
           educationLevel: req.body.educationLevel,
           guardian: req.body.guardian,

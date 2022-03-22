@@ -4,10 +4,19 @@ const StudentSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   educationLevel: {
     type: String,
-    required: true,
+    // required: true,
   },
   age: {
     type: Number,
+  },
+  phone: {
+    type: String,
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
   },
   guardian: {
     type: String,
