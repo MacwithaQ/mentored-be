@@ -40,6 +40,7 @@ exports.signup = async (req, res, next) => {
           major: req.body.major,
           employer: req.body.employer,
           bio: req.body.bio,
+          phone: req.body.phone,
           image: "",
         };
         console.log("mentor profile:", profile);
@@ -54,6 +55,7 @@ exports.signup = async (req, res, next) => {
           lastName: req.body.lastName,
           age: req.body.age,
           educationLevel: req.body.educationLevel,
+          phone: req.body.phone,
           guardian: req.body.guardian,
           gPhone: req.body.gPhone,
           image: "",
