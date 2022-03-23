@@ -1,16 +1,17 @@
 const express = require("express");
 const connectDB = require("./database/database");
+//* .env:
 const dotenv = require("dotenv");
 const cors = require("cors");
+//* passport:
 const passport = require("passport");
 const { localStrategy, jwtStrategy } = require("./middlewares/passport");
+//* import/require Routers:
 const usersRouter = require("./api/user/userRoutes");
-
 const studentsRouter = require("./api/student/studentRoutes");
-
 const mentorsRouter = require("./api/mentor/mentorRoutes");
 
-
+//* uses all import
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -18,6 +19,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+//* passport use:
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
@@ -30,15 +32,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routers
-// app.use("/api/categories", categoryRouter);
-// app.use("/api/recipes", recipeRouter);
+//?use Routers:
 app.use("/api/users", usersRouter);
 
 app.use("/api/students", studentsRouter);
 
 app.use("/api/mentors", mentorsRouter);
-
 
 //? Error handler Middleware
 app.use((err, req, res, next) => {

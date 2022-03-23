@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
-const User = require("../../database/models/User");
+//* Auth / security:
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../../config/keys");
+//* Schema:
+const User = require("../../database/models/User");
 const Mentor = require("../../database/models/Mentor");
 const Student = require("../../database/models/Student");
 
+//? FETCH USERS:
 exports.fetchUsers = async (req, res, next) => {
   try {
     const users = await User.find();
@@ -15,6 +18,7 @@ exports.fetchUsers = async (req, res, next) => {
   }
 };
 
+//? SIGN-UP:
 exports.signup = async (req, res, next) => {
   try {
     console.log("body", req.body);
@@ -77,6 +81,7 @@ exports.signup = async (req, res, next) => {
   }
 };
 
+//? SIGN-IN:
 exports.signin = (req, res, next) => {
   try {
     const user = req.user;
