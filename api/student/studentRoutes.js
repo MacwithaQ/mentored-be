@@ -4,7 +4,9 @@ const {
   updateStudent,
   fetchOneStudent,
 } = require("./studentController");
-// const upload = require("../../middleware/multer");
+
+//* use to upload img:
+const upload = require("../../middleware/multer");
 
 //? Set Router
 const studentsRouter = express.Router();
@@ -23,6 +25,6 @@ studentsRouter.param("studentId", async (req, res, next, studentId) => {
 //? Assign Router to Controllers
 
 studentsRouter.get("/", fetchStudents);
-studentsRouter.put("/:studentId", updateStudent);
+studentsRouter.put("/:studentId", upload.single("image"), updateStudent);
 
 module.exports = studentsRouter;
