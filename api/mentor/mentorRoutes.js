@@ -4,6 +4,8 @@ const {
   updateMentor,
   fetchOneMentor,
 } = require("./mentorController");
+
+//* use to upload img:
 const upload = require("../../middleware/multer");
 
 //? Set Router

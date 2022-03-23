@@ -4,6 +4,8 @@ const {
   updateStudent,
   fetchOneStudent,
 } = require("./studentController");
+
+//* use to upload img:
 const upload = require("../../middleware/multer");
 
 //? Set Router
