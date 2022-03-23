@@ -34,17 +34,17 @@ exports.fetchStudents = async (req, res, next) => {
 exports.updateStudent = async (req, res, next) => {
   try {
     if (req.file) {
-      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+      //* Changed
+      req.body.image = `/${req.file.path}`;
+      req.body.image = req.body.image.replace("\\", "/");
     }
     const studentId = req.student._id;
     const student = req.body;
+    //* Changed
     const studentUpdated = await Student.findByIdAndUpdate(studentId, student, {
       new: true,
       runValidators: true,
     });
-
-    // returns the updated student
-
     res
       .status(200)
       .json({ msg: "The student been Updated ", payload: studentUpdated });

@@ -4,6 +4,7 @@ const {
   updateMentor,
   fetchOneMentor,
 } = require("./mentorController");
+const upload = require("../../middleware/multer");
 
 //? Set Router
 const mentorsRouter = express.Router();
@@ -22,6 +23,6 @@ mentorsRouter.param("mentorId", async (req, res, next, mentorId) => {
 //? Assign Router to Controllers
 
 mentorsRouter.get("/", fetchMentors);
-mentorsRouter.put("/:mentorId", updateMentor);
+mentorsRouter.put("/:mentorId", upload.single("image"), updateMentor);
 
 module.exports = mentorsRouter;

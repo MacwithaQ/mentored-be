@@ -5,11 +5,15 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 //* passport:
 const passport = require("passport");
-const { localStrategy, jwtStrategy } = require("./middlewares/passport");
+const { localStrategy, jwtStrategy } = require("./middleware/passport");
 //* import/require Routers:
 const usersRouter = require("./api/user/userRoutes");
 const studentsRouter = require("./api/student/studentRoutes");
 const mentorsRouter = require("./api/mentor/mentorRoutes");
+
+//* multer to use img:
+const upload = require("./middleware/multer");
+const path = require("path");
 
 //* uses all import
 dotenv.config();
@@ -25,6 +29,8 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 // Console logs the requests being pushed to the backend
+//* Changed:
+app.use("/media", express.static(path.join(__dirname, "media")));
 app.use((req, res, next) => {
   console.log(
     `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`

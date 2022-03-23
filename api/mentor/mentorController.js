@@ -34,10 +34,14 @@ exports.fetchMentors = async (req, res, next) => {
 exports.updateMentor = async (req, res, next) => {
   try {
     if (req.file) {
-      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+      //* Changed
+      req.body.image = `/${req.file.path}`;
+      req.body.image = req.body.image.replace("\\", "/");
     }
+
     const mentorId = req.mentor._id;
     const mentor = req.body;
+    //* Changed
     const mentorUpdated = await Mentor.findByIdAndUpdate(mentorId, mentor, {
       new: true,
       runValidators: true,
