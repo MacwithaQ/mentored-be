@@ -1,7 +1,7 @@
+//* Schema:
 const Student = require("../../database/models/Student");
 
-//TODO: fetchOneStudent:
-
+//? FETCH-ONE-STUDENT:
 exports.fetchOneStudent = async (studentId, next) => {
   try {
     const student = await Student.findById(studentId);
@@ -17,7 +17,7 @@ exports.fetchOneStudent = async (studentId, next) => {
   }
 };
 
-//TODO: fetchStudents:
+//? FETCH-ALL-STUDENTS:
 exports.fetchStudents = async (req, res, next) => {
   try {
     const students = await Student.find().populate({
@@ -30,8 +30,7 @@ exports.fetchStudents = async (req, res, next) => {
   }
 };
 
-//TODO: updateStudentProfile
-
+//? UPDATE-STUDENT:
 exports.updateStudent = async (req, res, next) => {
   try {
     if (req.file) {

@@ -1,5 +1,7 @@
+//* Schema:
 const Mentor = require("../../database/models/Mentor");
 
+//? FETCH-ONE-MENTOR:
 exports.fetchOneMentor = async (mentorId, next) => {
   try {
     const mentor = await Mentor.findById(mentorId);
@@ -15,6 +17,7 @@ exports.fetchOneMentor = async (mentorId, next) => {
   }
 };
 
+//? FETCH-ALL-MENTORS:
 exports.fetchMentors = async (req, res, next) => {
   try {
     const mentors = await Mentor.find().populate({
@@ -27,6 +30,7 @@ exports.fetchMentors = async (req, res, next) => {
   }
 };
 
+//? UPDATE-MENTOR:
 exports.updateMentor = async (req, res, next) => {
   try {
     if (req.file) {
