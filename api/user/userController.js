@@ -32,6 +32,7 @@ exports.signup = async (req, res, next) => {
     if (newUser) {
       // if the user is MENTOR create mentor profile - AlKhareji
       if (newUser.isMentor === true) {
+        //! MAHAMD ALANSARI CHANGE this PLSES to small version>>
         console.log("is mentor?");
         const profile = {
           user: newUser._id,
@@ -48,6 +49,7 @@ exports.signup = async (req, res, next) => {
       }
       // else the user is Student. So, create student profile - AlKhareji
       else {
+        //! MAHAMD ALANSARI CHANGE this PLSES to small version>>
         console.log("is student?");
         const profile = {
           user: newUser._id,
