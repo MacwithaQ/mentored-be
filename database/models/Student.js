@@ -21,7 +21,6 @@ const StudentSchema = new mongoose.Schema({
   guardian: {
     type: String,
   },
-  //! added by AlKhareji
   gPhone: {
     type: Number,
   },

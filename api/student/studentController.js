@@ -36,7 +36,7 @@ exports.updateStudent = async (req, res, next) => {
     if (req.file) {
       //* FOR IMAGE USE :
       req.body.image = `/${req.file.path}`;
-      req.body.image = req.body.image.replace("\\", "/");
+      // req.body.image = req.body.image.replace("\\", "/");
     }
 
     const studentId = req.student._id; //* Take the id.
