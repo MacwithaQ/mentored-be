@@ -11,7 +11,10 @@ const Student = require("../../database/models/Student");
 //? FETCH USERS:
 exports.fetchUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find()
+      .populate("studentProfile")
+      .populate("mentorProfile");
+
     return res.json(users);
   } catch (error) {
     next(error);
@@ -26,60 +29,86 @@ exports.signup = async (req, res, next) => {
     const saltRounds = 10;
     req.body.password = await bcrypt.hash(password, saltRounds);
 
-    const newUser = await User.create(req.body);
+    const newUser = await User.create({
+      password: req.body.password,
+      email: req.body.email,
+      isMentor: req.body.isMentor,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phone: req.body.phone,
+      image: "",
+    });
 
-    // if New User Create Profile
     if (newUser) {
-      // if the user is MENTOR create mentor profile - AlKhareji
       if (newUser.isMentor === true) {
-        //! MAHAMD ALANSARI CHANGE this PLSES to small version>>
-        console.log("is mentor?");
-        const profile = {
+        const newMentor = await Mentor.create({
           user: newUser._id,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
           major: req.body.major,
           employer: req.body.employer,
           bio: req.body.bio,
-          phone: req.body.phone,
-          image: "",
+        });
+        newUser.mentorProfile = newMentor;
+
+        await User.findByIdAndUpdate(newUser._id, newUser, {
+          runValidators: true,
+          new: true,
+        });
+
+        // mentor profile
+        const payload = {
+          _id: newUser._id,
+          email: newUser.email,
+          isMentor: newUser.isMentor,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          phone: newUser.phone,
+          image: newUser.image,
+          mentorProfile: newMentor._id,
+          exp: Date.now() + JWT_EXPIRATION_MS,
         };
-        console.log("mentor profile:", profile);
-        await Mentor.create(profile);
-      }
-      // else the user is Student. So, create student profile - AlKhareji
-      else {
-        //! MAHAMD ALANSARI CHANGE this PLSES to small version>>
-        console.log("is student?");
-        const profile = {
+
+        const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
+
+        res.status(201).json({ token });
+      } else {
+        const newStudent = await Student.create({
           user: newUser._id,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           age: req.body.age,
           educationLevel: req.body.educationLevel,
-          phone: req.body.phone,
           guardian: req.body.guardian,
+          phone: req.body.phone,
           gPhone: req.body.gPhone,
           image: "",
+        });
+
+        newUser.studentProfile = newStudent;
+
+        await User.findByIdAndUpdate(newUser._id, newUser, {
+          runValidators: true,
+          new: true,
+        });
+
+        const payload = {
+          _id: newUser._id,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          phone: newUser.phone,
+          image: newUser.image,
+          email: newUser.email,
+          isMentor: newUser.isMentor,
+          studentProfile: newStudent._id,
+          exp: Date.now() + JWT_EXPIRATION_MS,
         };
-        console.log("student profile:", profile);
-        await Student.create(profile);
+
+        const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
+
+        res.status(201).json({ token });
       }
     }
 
-    const payload = {
-      _id: newUser._id,
-      username: newUser.username,
-      email: newUser.email,
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      isMentor: newUser.isMentor,
-      exp: Date.now() + JWT_EXPIRATION_MS,
-    };
-
-    const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
-
-    res.status(201).json({ token });
+    // TODO: make functions to shorten the signup function
   } catch (error) {
     next(error);
   }

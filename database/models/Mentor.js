@@ -3,18 +3,6 @@ const mongoose = require("mongoose");
 const MentorSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
-  phone: {
-    type: String,
-  },
-
-  firstName: {
-    type: String,
-  },
-
-  lastName: {
-    type: String,
-  },
-
   employer: {
     type: String,
     // required: true,
@@ -32,18 +20,12 @@ const MentorSchema = new mongoose.Schema({
     // required: true,
   },
 
-  image: {
-    type: String,
-  },
-
   //todo: Icebox - AlKhareji
   // degreeImage: {
   //   type: String,
   // },
 
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointment" }],
-
-  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
 });
 
 module.exports = mongoose.model("Mentor", MentorSchema);
