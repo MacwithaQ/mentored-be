@@ -12,6 +12,22 @@ const UserSchema = new mongoose.Schema({
   },
 
   isMentor: { type: Boolean, required: true },
+
+  phone: {
+    type: String,
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
+
+  mentorProfile: { type: mongoose.Schema.Types.ObjectId, ref: "Mentor" },
+  studentProfile: { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
 });
 
 module.exports = mongoose.model("User", UserSchema);
