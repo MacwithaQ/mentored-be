@@ -14,6 +14,7 @@ const { localStrategy, jwtStrategy } = require("./middleware/passport");
 const usersRouter = require("./api/user/userRoutes");
 const studentsRouter = require("./api/student/studentRoutes");
 const mentorsRouter = require("./api/mentor/mentorRoutes");
+const appointmentRouter = require("./api/appointment/appointmentRouters");
 
 //* Import/require Multer to use <IMG>:
 const upload = require("./middleware/multer");
@@ -49,6 +50,8 @@ app.use("/api/users", usersRouter);
 app.use("/api/students", studentsRouter);
 
 app.use("/api/mentors", mentorsRouter);
+
+app.use("/api/appointments", appointmentRouter);
 
 //? Error handler Middleware
 app.use((err, req, res, next) => {
