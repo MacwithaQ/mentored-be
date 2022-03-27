@@ -5,6 +5,11 @@ const AppointmentSchema = new mongoose.Schema({
   student: { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
   date: {
     type: Date,
+    default: new Date().toString(),
+  },
+  isAvailable: {
+    type: Boolean,
+    default: true,
   },
 });
 
