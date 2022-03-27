@@ -33,12 +33,6 @@ exports.fetchStudents = async (req, res, next) => {
 //? UPDATE-STUDENT:
 exports.updateStudent = async (req, res, next) => {
   try {
-    // if (req.file) {
-    //   //* FOR IMAGE USE :
-    //   req.body.image = `/${req.file.path}`;
-    //   // req.body.image = req.body.image.replace("\\", "/");
-    // }
-
     const studentId = req.student._id; //* Take the id.
     const student = req.body; //* Take all the body.
 
