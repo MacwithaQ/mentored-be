@@ -9,26 +9,15 @@ const StudentSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
-  phone: {
-    type: String,
-  },
-  firstName: {
-    type: String,
-  },
-  lastName: {
-    type: String,
-  },
+
   guardian: {
     type: String,
   },
   gPhone: {
     type: Number,
   },
-  image: {
-    type: String,
-  },
+
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointment" }],
-  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
 });
 
 module.exports = mongoose.model("Student", StudentSchema);
