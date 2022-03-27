@@ -102,7 +102,7 @@ exports.signup = async (req, res, next) => {
           lastName: newUser.lastName,
           phone: newUser.phone,
           image: newUser.image,
-          mentorProfile: newMentor._id,
+          mentorProfile: newMentor,
           exp: Date.now() + JWT_EXPIRATION_MS,
         };
 
@@ -137,7 +137,7 @@ exports.signup = async (req, res, next) => {
           image: newUser.image,
           email: newUser.email,
           isMentor: newUser.isMentor,
-          studentProfile: newStudent._id,
+          studentProfile: newStudent,
           exp: Date.now() + JWT_EXPIRATION_MS,
         };
 
@@ -154,22 +154,44 @@ exports.signup = async (req, res, next) => {
 };
 
 //? SIGN-IN:
-exports.signin = (req, res, next) => {
+exports.signin = async (req, res, next) => {
   try {
     const user = req.user;
 
-    const payload = {
-      _id: user._id,
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      isMentor: user.isMentor,
-      exp: Date.now() + JWT_EXPIRATION_MS,
-    };
+    const mentorProfile = await Mentor.findById(user.mentorProfile);
+    const studentProfile = await Student.findById(user.studentProfile);
 
-    const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
+    if (user.isMentor) {
+      const payload = {
+        _id: user._id,
+        email: user.email,
+        isMentor: user.isMentor,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phone: user.phone,
+        image: user.image,
+        mentorProfile: mentorProfile,
+        exp: Date.now() + JWT_EXPIRATION_MS,
+      };
+      const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
 
-    res.status(201).json({ token });
+      res.status(201).json({ token });
+    } else {
+      const payload = {
+        _id: user._id,
+        email: user.email,
+        isMentor: user.isMentor,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phone: user.phone,
+        image: user.image,
+        studentProfile: studentProfile,
+        exp: Date.now() + JWT_EXPIRATION_MS,
+      };
+      const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
+
+      res.status(201).json({ token });
+    }
   } catch (error) {
     console.log(error);
   }
