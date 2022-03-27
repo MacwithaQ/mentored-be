@@ -9,7 +9,6 @@ const {
 const conversationRouter = express.Router();
 
 //? Assign Router to Controllers
-// conversationRouter.get("/", fetchConversations);
 conversationRouter.post("/", createConversation);
 conversationRouter.get("/:userId", fetchConversations);
 
