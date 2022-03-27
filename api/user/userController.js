@@ -84,7 +84,7 @@ exports.signup = async (req, res, next) => {
           user: newUser._id,
           major: req.body.major,
           employer: req.body.employer,
-          bio: req.body.bio,
+          bio: "",
         });
         newUser.mentorProfile = newMentor;
 
@@ -176,6 +176,7 @@ exports.signin = async (req, res, next) => {
       const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
 
       res.status(201).json({ token });
+      console.log(mentorProfile);
     } else {
       const payload = {
         _id: user._id,
