@@ -8,6 +8,22 @@ const User = require("../../database/models/User");
 const Mentor = require("../../database/models/Mentor");
 const Student = require("../../database/models/Student");
 
+//? FETCH-ONE-USER:
+exports.fetchOneUser = async (userId, next) => {
+  try {
+    const user = await User.findById(userId);
+
+    if (user) return user;
+    else {
+      const error = new Error("User not found");
+      error.status = 404;
+      next(error);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 //? FETCH USERS:
 exports.fetchUsers = async (req, res, next) => {
   try {
@@ -16,6 +32,29 @@ exports.fetchUsers = async (req, res, next) => {
       .populate("mentorProfile");
 
     return res.json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//? UPDATE-USER:
+exports.updateUser = async (req, res, next) => {
+  try {
+    if (req.file) {
+      //* FOR IMAGE USE :
+      req.body.image = `/${req.file.path}`;
+      // req.body.image = req.body.image.replace("\\", "/");
+    }
+
+    const userId = req.user._id; //* Take the id.
+    const user = req.body; //* Take all the body.
+
+    //* FIND & UPDATE:
+    const userUpdated = await User.findByIdAndUpdate(userId, user, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({ msg: "User Updated", payload: userUpdated });
   } catch (error) {
     next(error);
   }
