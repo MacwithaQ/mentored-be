@@ -33,11 +33,11 @@ exports.fetchMentors = async (req, res, next) => {
 //? UPDATE-MENTOR:
 exports.updateMentor = async (req, res, next) => {
   try {
-    if (req.file) {
-      //* FOR IMAGE USE :
-      req.body.image = `/${req.file.path}`;
-      // req.body.image = req.body.image.replace("\\", "/");
-    }
+    // if (req.file) {
+    //   //* FOR IMAGE USE :
+    //   req.body.image = `/${req.file.path}`;
+    //   // req.body.image = req.body.image.replace("\\", "/");
+    // }
 
     const mentorId = req.mentor._id; //* Take the id.
     const mentor = req.body; //* Take all the body.
