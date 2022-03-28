@@ -6,7 +6,6 @@ const { createMessage, fetchMessages } = require("./messageController");
 const messageRouter = express.Router();
 
 //? Assign Router to Controllers
-messageRouter.post("/", createMessage);
 messageRouter.get("/:conversationId", fetchMessages);
 
 module.exports = messageRouter;
