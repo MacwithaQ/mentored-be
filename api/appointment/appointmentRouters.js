@@ -1,5 +1,9 @@
 const express = require("express");
-const { fetchAppointment, addAppointment } = require("./appointmentController");
+const {
+  fetchAppointment,
+  addAppointment,
+  bookAppointment,
+} = require("./appointmentController");
 const passport = require("passport");
 
 const appointmentRouter = express.Router();
@@ -9,6 +13,11 @@ appointmentRouter.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   addAppointment
+);
+appointmentRouter.put(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  bookAppointment
 );
 
 module.exports = appointmentRouter;
