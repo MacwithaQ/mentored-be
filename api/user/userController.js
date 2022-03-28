@@ -54,7 +54,8 @@ exports.updateUser = async (req, res, next) => {
       new: true,
       runValidators: true,
     });
-    res.status(200).json({ msg: "User Updated", payload: userUpdated });
+
+    return res.status(200).json({ msg: "User Updated", payload: userUpdated });
   } catch (error) {
     next(error);
   }

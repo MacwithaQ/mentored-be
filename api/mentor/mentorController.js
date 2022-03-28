@@ -41,7 +41,9 @@ exports.updateMentor = async (req, res, next) => {
       new: true,
       runValidators: true,
     });
-    res.status(200).json({ msg: "Mentor Updated", payload: mentorUpdated });
+    return res
+      .status(200)
+      .json({ msg: "Mentor Updated", payload: mentorUpdated });
   } catch (error) {
     next(error);
   }
