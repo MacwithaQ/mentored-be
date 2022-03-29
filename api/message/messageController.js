@@ -21,7 +21,7 @@ const Message = require("../../database/models/Message");
 exports.fetchMessages = async (req, res, next) => {
   try {
     const messages = await Message.find({
-      conversationId: req.params.conversationId,
+      conversation: req.params.conversation,
     }).populate("user");
     res.status(200).json(messages);
   } catch (error) {
