@@ -3,6 +3,7 @@ const {
   fetchStudents,
   updateStudent,
   fetchOneStudent,
+  updateStudentBalance,
 } = require("./studentController");
 
 //* use to upload img:
@@ -26,5 +27,6 @@ studentsRouter.param("studentId", async (req, res, next, studentId) => {
 
 studentsRouter.get("/", fetchStudents);
 studentsRouter.put("/:studentId", upload.single("image"), updateStudent);
+studentsRouter.put("/balance/:studentId", updateStudentBalance);
 
 module.exports = studentsRouter;
