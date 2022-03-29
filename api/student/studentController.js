@@ -48,3 +48,21 @@ exports.updateStudent = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.updateStudentBalance = async (req, res, next) => {
+  try {
+    const studentId = req.student._id; //* Take the id.
+    const balance = { balance: req.body.balance }; //* Take all the body.
+
+    //* FIND & UPDATE:
+    const studentUpdated = await Student.findByIdAndUpdate(studentId, balance, {
+      new: true,
+      runValidators: true,
+    });
+    res
+      .status(200)
+      .json({ msg: "The student been Updated ", payload: studentUpdated });
+  } catch (err) {
+    next(error);
+  }
+};

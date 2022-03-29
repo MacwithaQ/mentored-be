@@ -6,6 +6,7 @@ const StudentSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
+
   age: {
     type: Number,
   },
@@ -13,8 +14,15 @@ const StudentSchema = new mongoose.Schema({
   guardian: {
     type: String,
   },
+
   gPhone: {
     type: Number,
+  },
+
+  balance: {
+    type: Number,
+    default: 0,
+    min: 0,
   },
 
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointment" }],
