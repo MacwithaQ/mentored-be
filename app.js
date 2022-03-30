@@ -2,6 +2,9 @@
 const express = require("express");
 const connectDB = require("./database/database");
 
+const http = require("http");
+const { Server } = require("socket.io");
+
 //* Import/require .env:
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -30,6 +33,9 @@ dotenv.config();
 
 //* Use app - cors - urlencoded:
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -79,7 +85,12 @@ app.use((req, res, next) => {
 
 //? PORT:
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+});
+
+server.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);
   connectDB();
 });
