@@ -26,11 +26,13 @@ exports.createConversation = async (req, res, next) => {
 exports.createMessage = async (req, res, next) => {
   const { conversationId } = req.params;
   try {
+    console.log(req.body);
     const foundConversation = await Conversation.findById(conversationId);
     const newMessage = await Message.create(req.body);
     await Conversation.findByIdAndUpdate(foundConversation._id, {
       $push: { messages: newMessage._id },
     });
+
     res.status(200).json(newMessage);
   } catch (error) {
     next(error);

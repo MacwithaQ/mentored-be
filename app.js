@@ -88,6 +88,10 @@ const PORT = process.env.PORT;
 
 io.on("connection", (socket) => {
   console.log("a user connected");
+  socket.on("backend", (msg) => {
+    console.log(msg);
+    socket.broadcast.emit("frontend", msg);
+  });
 });
 
 server.listen(PORT, () => {
